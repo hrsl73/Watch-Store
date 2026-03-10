@@ -36,6 +36,7 @@ router.post('/register', async (req, res) => {
         _id: user._id,
         username: user.username,
         role: user.role,
+        createdAt: user.createdAt,
         token: generateToken(user._id),
       });
     } else {
@@ -58,6 +59,7 @@ router.post('/login', async (req, res) => {
         _id: user._id,
         username: user.username,
         role: user.role,
+        createdAt: user.createdAt,
         token: generateToken(user._id),
       });
     } else {
