@@ -67,6 +67,9 @@ const WatchCard = ({ watch, index }) => {
             <h3 className="text-xl font-bold font-serif text-slate-900 dark:text-white mb-2 leading-tight">
               {watch.name}
             </h3>
+            <div className={`mt-2 text-xs font-bold tracking-wide uppercase ${availability.color}`}>
+              {availability.text}
+            </div>
           </div>
           
           <div className="mt-6 pt-4 border-t border-slate-200/50 dark:border-slate-700/50 flex items-center justify-between">
