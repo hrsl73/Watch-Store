@@ -25,7 +25,8 @@ const ProtectedRoute = ({ children, adminOnly = false }) => {
 };
 
 const App = () => {
-  const { initSocket, cleanupSocket } = useWatchStore();
+  const { user } = useAuthStore();
+  const { initSocket, cleanupSocket, fetchFavorites, clearFavorites } = useWatchStore();
 
   useEffect(() => {
     initSocket();
@@ -33,6 +34,14 @@ const App = () => {
       cleanupSocket();
     };
   }, [initSocket, cleanupSocket]);
+
+  useEffect(() => {
+    if (user) {
+      fetchFavorites();
+    } else {
+      clearFavorites();
+    }
+  }, [user, fetchFavorites, clearFavorites]);
 
   return (
     <div className="min-h-screen bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-slate-50 font-sans transition-colors duration-300">

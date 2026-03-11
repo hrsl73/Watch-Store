@@ -4,20 +4,32 @@ import { io } from 'socket.io-client';
 
 const socket = io('http://localhost:5001');
 
-const savedFavorites = JSON.parse(localStorage.getItem('watch_favorites') || '[]');
 
 const useWatchStore = create((set, get) => ({
   watches: [],
-  favorites: savedFavorites,
+  favorites: [],
   isLoading: false,
   error: null,
 
-  toggleFavorite: (id) => set((state) => {
-    const isFav = state.favorites.includes(id);
-    const newFavs = isFav ? state.favorites.filter(f => f !== id) : [...state.favorites, id];
-    localStorage.setItem('watch_favorites', JSON.stringify(newFavs));
-    return { favorites: newFavs };
-  }),
+  toggleFavorite: async (id) => {
+    try {
+      const { data } = await api.post(`/users/favorites/${id}`);
+      set({ favorites: data });
+    } catch (error) {
+      console.error('Failed to toggle favorite:', error);
+    }
+  },
+
+  fetchFavorites: async () => {
+    try {
+      const { data } = await api.get('/users/favorites');
+      set({ favorites: data });
+    } catch (error) {
+      console.error('Failed to fetch favorites:', error);
+    }
+  },
+
+  clearFavorites: () => set({ favorites: [] }),
 
   fetchWatches: async () => {
     set({ isLoading: true, error: null });

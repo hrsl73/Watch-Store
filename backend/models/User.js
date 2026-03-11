@@ -15,6 +15,10 @@ const userSchema = new mongoose.Schema({
     enum: ['user', 'admin'],
     default: 'user',
   },
+  favorites: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Watch'
+  }],
 }, { timestamps: true });
 
 export default mongoose.model('User', userSchema);

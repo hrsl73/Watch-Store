@@ -6,6 +6,7 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import authRoutes from './routes/authRoutes.js';
 import watchRoutes from './routes/watchRoutes.js';
+import userRoutes from './routes/userRoutes.js';
 
 dotenv.config();
 
@@ -45,5 +46,6 @@ mongoose
 // Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/watches', watchRoutes);
+app.use('/api/users', userRoutes);
 
 export default app;
