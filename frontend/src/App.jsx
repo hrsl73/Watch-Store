@@ -9,6 +9,7 @@ import UserProfile from './pages/UserProfile';
 import Favorites from './pages/Favorites';
 import useAuthStore from './store/useAuthStore';
 import useWatchStore from './store/useWatchStore';
+import NotFound from './pages/NotFound';
 
 const ProtectedRoute = ({ children, adminOnly = false }) => {
   const { user } = useAuthStore();
@@ -51,6 +52,7 @@ const App = () => {
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/favorites" element={<Favorites />} />
+          <Route path="*" element={<NotFound />} />
           <Route 
             path="/admin" 
             element={
